@@ -119,7 +119,7 @@ module Jekyll
 
 	 		to_resize = []
 
-	 		Dir.glob(File.join(@gallery_dir, "*.{png,jpg,jpeg,gif}")).each do |file|
+			Dir.glob(File.join(@gallery_dir, "**", "*.{png,jpg,jpeg,gif}")).each do |file|
 	 			if !File.basename(file).include? "-thumb"
 	 				thumbname = File.join(@gallery_dir, File.basename(file).sub(File.extname(file), "-thumb#{File.extname(file)}"))
 	 				if !File.exists?(thumbname)
