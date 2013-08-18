@@ -93,7 +93,7 @@ module Jekyll
 
 
 	 	def get_url
-	 		filename = File.basename(@img_filename).sub(File.extname(@img_filename), "-thumb#{File.extname(@img_filename)}")
+	 		filename = File.path(@img_filename).sub(File.extname(@img_filename), "-thumb#{File.extname(@img_filename)}")
 	 		"#{@config['url']}/#{filename}"
 	 	end
 
