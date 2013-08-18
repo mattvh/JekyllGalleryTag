@@ -32,11 +32,11 @@ Jekyll will automatically generate (during builds) thumbnails for any images in 
 
 ```
 {% gallery galleryname %}
-myfirstimage.jpg:: A caption!
-myseconfimage.png:: Another caption
-mythirdimage.jpg
-myfourthimage.png
-myfifthimage.jpg
+subfolder/myfirstimage.jpg:: A caption!
+subfolder/myseconfimage.png:: Another caption
+subfolder/mythirdimage.jpg
+subfolder/myfourthimage.png
+subfolder/myfifthimage.jpg
 {% endgallery %}
 ```
 
