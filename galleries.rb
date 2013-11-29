@@ -125,8 +125,8 @@ module Jekyll
 	 	def generate(site)
 
 	 		@config = site.config['gallerytag']
-	 		@gallery_dir  = File.expand_path(@config['dir'])
-	 		@gallery_dest = File.expand_path(File.join(site.dest, @config['dir']))
+	 		@gallery_dir  = File.expand_path(@config['source_dir'] != nil ? @config['source_dir'] : @config['dir'])
+	 		@gallery_dest = File.expand_path(File.join(site.dest, @config['destination_dir'] != nil ? @config['destination_dir'] : @config['dir']))
 
 	 		thumbify(files_to_resize(site))
 
@@ -143,7 +143,7 @@ module Jekyll
 	 				name = File.join(File.dirname(file).sub(@gallery_dir, ''), File.basename(file).sub(File.extname(file), "-thumb#{File.extname(file)}"))
 	 				thumbname = File.join(@gallery_dest, name)
 	                # Keep the thumb files from being cleaned by Jekyll
-	                site.static_files << Jekyll::GalleryFile.new(site, site.dest, @config['dir'], name)
+	                site.static_files << Jekyll::GalleryFile.new(site, site.dest, @gallery_dest, thumbname)
 	 				if !File.exists?(thumbname)
 	 					to_resize.push({ "file" => file, "thumbname" => thumbname })
 	 				end
@@ -158,6 +158,9 @@ module Jekyll
 	 	def thumbify(items)
 	 		if items.count > 0
 		 		items.each do |item|
+
+		 			puts item['file']
+		 			puts item['thumbname']
 
 		 			img = Magick::Image.read(item['file']).first
 		 			thumb = img.resize_to_fill!(@config['thumb_width'], @config['thumb_height'])
