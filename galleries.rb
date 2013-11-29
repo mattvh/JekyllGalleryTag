@@ -126,7 +126,8 @@ module Jekyll
 
 	 		@config = site.config['gallerytag']
 	 		@gallery_dir  = File.expand_path(@config['source_dir'] != nil ? @config['source_dir'] : @config['dir'])
-	 		@gallery_dest = File.expand_path(File.join(site.dest, @config['destination_dir'] != nil ? @config['destination_dir'] : @config['dir']))
+	 		@gallery_dest = @config['destination_dir'] != nil ? @config['destination_dir'] : @config['dir']
+	 		@gallery_full_dest = File.expand_path(File.join(site.source, @gallery_dest))
 
 	 		thumbify(files_to_resize(site))
 
@@ -139,11 +140,15 @@ module Jekyll
 
 	 		Dir.glob(File.join(@gallery_dir, "**", "*.{png,jpg,jpeg,gif}")).each do |file|
 	 			if !File.basename(file).include? "-thumb"
+
 	 				# generate thumbnails in same folder as original files
-	 				name = File.join(File.dirname(file).sub(@gallery_dir, ''), File.basename(file).sub(File.extname(file), "-thumb#{File.extname(file)}"))
-	 				thumbname = File.join(@gallery_dest, name)
+	 				file_directory = File.dirname(file).sub(@gallery_dir, '');
+	 				name = File.join(file_directory, File.basename(file).sub(File.extname(file), "-thumb#{File.extname(file)}"))
+	 				thumbname = File.join(@gallery_full_dest, name)
+
 	                # Keep the thumb files from being cleaned by Jekyll
-	                site.static_files << Jekyll::GalleryFile.new(site, site.dest, @gallery_dest, thumbname)
+	                site.static_files << Jekyll::GalleryFile.new(site, site.source, @gallery_dest + "/" + file_directory, File.basename(name))
+
 	 				if !File.exists?(thumbname)
 	 					to_resize.push({ "file" => file, "thumbname" => thumbname })
 	 				end
