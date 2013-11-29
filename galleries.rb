@@ -54,10 +54,11 @@ module Jekyll
 
 		def gallery_images
 			input_data = block_contents
+			source_dir = @config['source_dir'] != nil ? @config['source_dir'] : @config['url'];
 			gallery_data = []
 			input_data.each do |item|
 				hsh = {
-					"url" => "#{@config['url']}/#{item[0]}",
+					"url" => "/#{source_dir}/#{item[0]}",
 					"thumbnail" => GalleryThumbnail.new(item[0], @config), #this should be url to a generated thumbnail, eventually
 					"caption" => item[1]
 				}
@@ -97,7 +98,8 @@ module Jekyll
 
 	 	def get_url
 	 		filename = File.path(@img_filename).sub(File.extname(@img_filename), "-thumb#{File.extname(@img_filename)}")
-			"#{@config['url']}/#{filename}"
+	 		directory = @config['destination_dir'] != nil ? @config['destination_dir'] : @config['url']
+			"/#{directory}/#{filename}"
 	 	end
 
 
@@ -163,9 +165,6 @@ module Jekyll
 	 	def thumbify(items)
 	 		if items.count > 0
 		 		items.each do |item|
-
-		 			puts item['file']
-		 			puts item['thumbname']
 
 		 			img = Magick::Image.read(item['file']).first
 		 			thumb = img.resize_to_fill!(@config['thumb_width'], @config['thumb_height'])

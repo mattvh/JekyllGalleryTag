@@ -11,15 +11,15 @@ Installation
 
 ``` yaml
 gallerytag:
-    dir: images/galleries
-    url: /images/galleries
+    source_dir: images/gallery
+    destination_dir: images/thumbs
     thumb_width: 150
     thumb_height: 150
     columns: 4
 ```
 
-* `dir` — The path (relative to your top Jekyll directory) to the folder containing your gallery images.
-* `url` — The URL to your gallery folder.
+* `source_dir` — The path (relative to your top Jekyll directory) to the folder containing your gallery images.
+* `destination_dir` — The path to you thumbnails (relative to your top Jeyll directory). Recommened to different to `source_dir` directory name.
 * `thumb_width` — The width, in pixels, you want your thumbnails to have
 * `thumb_height` — The height, in pixels, you want your thumbnails to have
 * `columns` — How many columns galleries should display when the Liquid tag is used.
