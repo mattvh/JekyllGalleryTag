@@ -5,7 +5,7 @@ Jekyll plugin to generate thumbnails from a directory of images and display them
 
 Installation
 --------------
-0. Install [ImageMagick](http://www.imagemagick.org/) and the [RMagick gem.](https://github.com/rmagick/rmagick)
+0. Install [ImageMagick](http://www.imagemagick.org/) and the [RMagick gem.](https://github.com/rmagick/rmagick) (Here is good instruction how to [Install rmagick on OS X Mountain Lion](https://coderwall.com/p/mwtoya))
 1. Drop `galleries.rb` into your Jekyll site's `_plugins` folder.
 2. Add the following to your `_config.yml` and customize to taste.
 
@@ -16,19 +16,20 @@ gallerytag:
     thumb_width: 150
     thumb_height: 150
     columns: 4
+    custom_attribute_name: data-lightbox
 ```
 
-* `source_dir` — The path (relative to your top Jekyll directory) to the folder containing your gallery images.
-* `destination_dir` — The path to you thumbnails (relative to your top Jeyll directory). Recommened to different to `source_dir` directory name.
+* `source_dir` — The path (relative to your top Jekyll directory, where is `_config.yml` stored) to the folder containing your gallery images.
+* `destination_dir` — The path to you thumbnails (relative to your top Jeyll directory). Recommened to different to `source_dir` directory name (easy to delete all thumbnails for its re-render).
 * `thumb_width` — The width, in pixels, you want your thumbnails to have
 * `thumb_height` — The height, in pixels, you want your thumbnails to have
 * `columns` — How many columns galleries should display when the Liquid tag is used.
-
+* `custom_attribute_name` - add into <a> tag attribute with specified name and gallery name as a value (userful for lightbox plugins, when need to tag). By default custom attribute name is `rel` (used in old version of JekyllGalleryTag)
 
 Usage
 -------
 
-Jekyll will automatically generate (during builds) thumbnails for any images in the folder specified in `_config.yml`. To display them in a post, you would use a Liquid tag set up like this:
+Jekyll will automatically generate (during builds) thumbnails for any images in the folder specified in `source_dir` variable of `_config.yml` and put them into `destination_dir`. To display them in a post, you would use a Liquid tag set up like this:
 
 ```
 {% gallery galleryname %}
@@ -40,6 +41,8 @@ subfolder/myfifthimage.jpg
 {% endgallery %}
 ```
 
-Jekyll will output some HTML that is (intentionally) similar to what WordPress does for galleries in posts, making it relatively simple to tweak your CSS. It will also add `rel` attributes to the links, which contain the "galleryname" text as shown in the above example. This makes is easy to integrate a lightbox script like [FancyBox.](http://fancyapps.com/fancybox/)
+`subfolder/` is a directory with images in you `source_dir`. 
+
+Jekyll will output some HTML that is (intentionally) similar to what WordPress does for galleries in posts, making it relatively simple to tweak your CSS. It will also add custom attribute (default - `rel`) to the links, which contain the "galleryname" text as shown in the above example. This makes is easy to integrate a lightbox script like [FancyBox](http://fancyapps.com/fancybox/) or [Lightbox2](http://lokeshdhakar.com/projects/lightbox2/).
 
 You can see it in action on my personal blog, [here.](http://matt.harzewski.com/2012/03/13/winterspyre-a-minecraft-creation/)

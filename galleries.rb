@@ -30,13 +30,14 @@ module Jekyll
 			columns = (@config['columns'] != nil) ? @config['columns'] : 4
 			width = (@config['thumb_width'] != nil) ? @config['thumb_width'] : 150
 			height = (@config['thumb_height'] != nil) ? @config['thumb_height'] : 150
+			custom_attribute_name = (@config['custom_attribute_name'] != nil) ? @config['custom_attribute_name'] : 'rel'
 			images = gallery_images
 
 			images_html = ""
 			images.each_with_index do |image, key|
 				images_html << "<dl class=\"gallery-item\">\n"
 				images_html << "<dt class=\"gallery-icon\">\n"
-				images_html << "<a class=\"gallery-link\" rel=\"#{@gallery_name}\" href=\"#{image['url']}\" data-lightbox=\"#{@gallery_name}\" title=\"#{image['caption']}\">"
+				images_html << "<a class=\"gallery-link\" href=\"#{image['url']}\" title=\"#{image['caption']}\" #{custom_attribute_name}=\"#{@gallery_name}\">"
 				images_html << "<img src=\"#{image['thumbnail']}\" class=\"thumbnail\" width=\"#{height}\" height=\"#{width}\" />\n"
 				images_html << "</a>\n"
 				images_html << "</dt>\n"
@@ -54,7 +55,7 @@ module Jekyll
 
 		def gallery_images
 			input_data = block_contents
-			source_dir = @config['source_dir'] != nil ? @config['source_dir'] : @config['url'];
+			source_dir = @config['source_dir'] != nil ? @config['source_dir'].sub(/^\//, '') : @config['url'].sub(/^\//, '');
 			gallery_data = []
 			input_data.each do |item|
 				hsh = {
@@ -98,7 +99,7 @@ module Jekyll
 
 	 	def get_url
 	 		filename = File.path(@img_filename).sub(File.extname(@img_filename), "-thumb#{File.extname(@img_filename)}")
-	 		directory = @config['destination_dir'] != nil ? @config['destination_dir'] : @config['url']
+	 		directory = @config['destination_dir'] != nil ? @config['destination_dir'].sub(/^\//, '') : @config['url'].sub(/^\//, '')
 			"/#{directory}/#{filename}"
 	 	end
 
