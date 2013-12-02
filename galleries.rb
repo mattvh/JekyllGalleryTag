@@ -55,7 +55,7 @@ module Jekyll
 
 		def gallery_images
 			input_data = block_contents
-			source_dir = @config['source_dir'] != nil ? @config['source_dir'].sub(/^\//, '') : @config['url'].sub(/^\//, '');
+			source_dir = @config['source_dir'] != nil ? @config['source_dir'].sub(/^\//, '') : (@config['url'] != nil ? @config['url'].sub(/^\//, '') : "images/thumbs");
 			gallery_data = []
 			input_data.each do |item|
 				hsh = {
@@ -99,7 +99,7 @@ module Jekyll
 
 	 	def get_url
 	 		filename = File.path(@img_filename).sub(File.extname(@img_filename), "-thumb#{File.extname(@img_filename)}")
-	 		directory = @config['destination_dir'] != nil ? @config['destination_dir'].sub(/^\//, '') : @config['url'].sub(/^\//, '')
+	 		directory = @config['destination_dir'] != nil ? @config['destination_dir'].sub(/^\//, '') : (@config['url'] != nil ? @config['url'].sub(/^\//, '') : "images/thumbs")
 			"/#{directory}/#{filename}"
 	 	end
 
@@ -128,8 +128,8 @@ module Jekyll
 	 	def generate(site)
 
 	 		@config = site.config['gallerytag']
-	 		@gallery_dir  = File.expand_path(@config['source_dir'] != nil ? @config['source_dir'] : @config['dir'])
-	 		@gallery_dest = @config['destination_dir'] != nil ? @config['destination_dir'] : @config['dir']
+	 		@gallery_dir  = File.expand_path(@config['source_dir'] != nil ? @config['source_dir'] : (@config['dir'] != nil ? @config['dir'].sub(/^\//, '') : "images/gallery"))
+	 		@gallery_dest = @config['destination_dir'] != nil ? @config['destination_dir'] : (@config['url'] != nil ? @config['url'].sub(/^\//, '') : "images/thumbs")
 	 		@gallery_full_dest = File.expand_path(File.join(site.source, @gallery_dest))
 
 	 		thumbify(files_to_resize(site))

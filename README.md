@@ -5,7 +5,7 @@ Jekyll plugin to generate thumbnails from a directory of images and display them
 
 Installation
 --------------
-0. Install [ImageMagick](http://www.imagemagick.org/) and the [RMagick gem.](https://github.com/rmagick/rmagick) (Here is good instruction how to [Install rmagick on OS X Mountain Lion](https://coderwall.com/p/mwtoya))
+0. Install [ImageMagick](http://www.imagemagick.org/) and the [RMagick gem](https://github.com/rmagick/rmagick) (Here is good instruction how to [Install rmagick on OS X Mountain Lion](https://coderwall.com/p/mwtoya)).
 1. Drop `galleries.rb` into your Jekyll site's `_plugins` folder.
 2. Add the following to your `_config.yml` and customize to taste.
 
@@ -19,12 +19,12 @@ gallerytag:
     custom_attribute_name: data-lightbox
 ```
 
-* `source_dir` — The path (relative to your top Jekyll directory, where is `_config.yml` stored) to the folder containing your gallery images.
-* `destination_dir` — The path to you thumbnails (relative to your top Jeyll directory). Recommened to different to `source_dir` directory name (easy to delete all thumbnails for its re-render).
-* `thumb_width` — The width, in pixels, you want your thumbnails to have
-* `thumb_height` — The height, in pixels, you want your thumbnails to have
-* `columns` — How many columns galleries should display when the Liquid tag is used.
-* `custom_attribute_name` - add into <a> tag attribute with specified name and gallery name as a value (userful for lightbox plugins, when need to tag). By default custom attribute name is `rel` (used in old version of JekyllGalleryTag)
+* `source_dir` — The path (relative to your top Jekyll directory, where is `_config.yml` stored) to the folder containing your gallery images. Default value _images/gallery_
+* `destination_dir` — The path to you thumbnails (relative to your top Jeyll directory). Recommend to use a different path in relation to `source_dir` to have possibility easily remove all thumbnails in one time. Default value: _images/thumbs_
+* `thumb_width` — The width, in pixels, you want your thumbnails to have. Default value: _150_.
+* `thumb_height` — The height, in pixels, you want your thumbnails to have. Default value: _150_.
+* `columns` — How many columns galleries should display when the Liquid tag is used. Default value: _4_.
+* `custom_attribute_name` - add into <a> tag custom attribute with specified name which contain the "galleryname" (userful for lightbox plugins, when need to tag). By default custom attribute name is _rel_ for backward capability with old version of JekyllGalleryTag.
 
 Usage
 -------
