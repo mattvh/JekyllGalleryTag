@@ -24,7 +24,7 @@ gallerytag:
 * `thumb_width` — The width, in pixels, you want your thumbnails to have. Default value: _150_.
 * `thumb_height` — The height, in pixels, you want your thumbnails to have. Default value: _150_.
 * `columns` — How many columns galleries should display when the Liquid tag is used. Default value: _4_.
-* `custom_attribute_name` - add into <a> tag custom attribute with specified name which contain the "galleryname" (userful for lightbox plugins, when need to tag). By default custom attribute name is _rel_ for backward capability with old version of JekyllGalleryTag.
+* `custom_attribute_name` - add into "a" tag custom attribute with specified name which contain the "galleryname" (userful for lightbox plugins, when need to tag). By default custom attribute name is _rel_ for backward capability with old version of JekyllGalleryTag.
 
 Usage
 -------
