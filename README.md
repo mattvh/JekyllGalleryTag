@@ -1,12 +1,19 @@
-JekyllGalleryTag
-================
+JekyllGalleryTag (enhanced version)
+===================================
 
-Jekyll plugin to generate thumbnails from a directory of images and display them with a Liquid tag
+Jekyll plugin to generate thumbnails from a directory of images and display them with a Liquid tag.
 
-This fork is based on [luckyalvy's fork](https://github.com/luckyalvy/JekyllGalleryTag) of [redwallhp's JekyllGalleryTag](https://github.com/redwallhp/JekyllGalleryTag). It uses [minimagick](https://github.com/minimagick/minimagick) instead of [RMagick](https://github.com/rmagick/rmagick) which eats up less memory.
+This fork is based on [luckyalvy's fork](https://github.com/luckyalvy/JekyllGalleryTag) of [redwallhp's JekyllGalleryTag](https://github.com/redwallhp/JekyllGalleryTag).
+
+Enhanced version features
+-------------------------
+
+* uses [minimagick](https://github.com/minimagick/minimagick) instead of [RMagick](https://github.com/rmagick/rmagick) which eats up less memory
+* generate galleries by pointing to folders of images instead of pointing to each single file (see "Usage" below)
+* includes the enhancements of [luckyalvy's fork](https://github.com/luckyalvy/JekyllGalleryTag)
 
 Installation
---------------
+------------
 0. Install [ImageMagick](http://www.imagemagick.org/) and the [mini_magick gem](https://github.com/minimagick/minimagick).
 1. Drop `galleries.rb` into your Jekyll site's `_plugins` folder.
 2. Add the following to your `_config.yml` and customize to taste.
@@ -31,7 +38,7 @@ gallerytag:
 Usage
 -------
 
-Jekyll will automatically generate (during builds) thumbnails for any images in the folder specified in `source_dir` variable of `_config.yml` and put them into `destination_dir`. To display them in a post, you would use a Liquid tag set up like this:
+Jekyll will automatically generate (during builds) thumbnails for any images in the folder specified in `source_dir` variable of `_config.yml` and put them into `destination_dir`. To display specific images in a post, you would use a Liquid tag set up like this:
 
 ```
 {% gallery galleryname %}
@@ -42,6 +49,17 @@ subfolder/myfourthimage.png
 subfolder/myfifthimage.jpg
 {% endgallery %}
 ```
+
+Or you specify only the folder and the gallery will be generated with all images that are contained in this folder:
+
+```
+{% gallery galleryname %}
+subfolder/:: A caption for all images in the folder
+subfolder2/
+{% endgallery %}
+```
+
+You can also mix both!
 
 `subfolder/` is a directory with images in you `source_dir`. 
 
