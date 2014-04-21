@@ -9,8 +9,6 @@
 # Version: 1.1.0-minimagic-fork
 
 
-require 'mini_magick'
-
 module Jekyll
 
 
@@ -190,8 +188,12 @@ module Jekyll
 	 		@gallery_dest = @config['destination_dir'] != nil ? @config['destination_dir'] : (@config['url'] != nil ? @config['url'].sub(/^\//, '') : "images/thumbs")
 	 		@gallery_full_dest = File.expand_path(File.join(site.source, @gallery_dest))
 
-	 		thumbify(files_to_resize(site))
 
+            if @config['magick_lib'] == 'mini'
+	 		    thumbify_mini(files_to_resize(site))
+	 		else
+                thumbify(files_to_resize(site))
+            end
 	 	end
 
 
@@ -219,9 +221,30 @@ module Jekyll
 	 		return to_resize
 
 	 	end
-
-
+	 	
 	 	def thumbify(items)
+	 	    require "RMagick"
+	 	
+	 		if items.count > 0
+		 		items.each do |item|
+
+		 			img = Magick::Image.read(item['file']).first
+		 			thumb = img.resize_to_fill!(@config['thumb_width'], @config['thumb_height'])
+
+		 			# create directory for thumbnail if it not exists
+		 			if !Dir.exists?(File.dirname(item['thumbname']))
+		 				FileUtils.mkdir_p File.dirname(item['thumbname'])
+		 			end
+
+		 			thumb.write(item['thumbname'])
+		 			thumb.destroy!
+		 		end
+	 		end
+	 	end
+
+	 	def thumbify_mini(items)
+	 	    require 'mini_magick'
+	 	
 	 		if items.count > 0
 		 		items.each do |item|		 			
 		 			thumb_w = @config['thumb_width']
