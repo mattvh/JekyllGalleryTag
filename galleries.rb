@@ -58,16 +58,48 @@ module Jekyll
 			source_dir = @config['source_dir'] != nil ? @config['source_dir'].sub(/^\//, '') : (@config['url'] != nil ? @config['url'].sub(/^\//, '') : "images/thumbs");
 			gallery_data = []
 			input_data.each do |item|
-				hsh = {
-					"url" => "/#{source_dir}/#{item[0]}",
-					"thumbnail" => GalleryThumbnail.new(item[0], @config), #this should be url to a generated thumbnail, eventually
-					"caption" => item[1]
-				}
-				gallery_data.push(hsh)
+			    full_item_path = File.join(source_dir, item[0])
+			    item_ok = File.readable?(full_item_path)
+			    if File.directory?(full_item_path) && item_ok   # check if this item points to a directory
+			        itemnum = 1
+                    Dir.glob(File.join(full_item_path, "*.{png,jpg,jpeg,gif}")).each do |file|
+                        file_in_gal_path = File.join(item[0], File.basename(file))
+                        
+                        hsh = gen_gallery_data_from_item(file_in_gal_path, source_dir, item[1], itemnum)
+	   			        gallery_data.push(hsh)
+	   			        
+	   			        itemnum += 1
+                    end
+			    elsif item_ok
+                    hsh = gen_gallery_data_from_item(item[0], source_dir, item[1], nil)
+				
+				    gallery_data.push(hsh)
+				else
+				    puts "JekyllGalleryTag: Could not read file #{full_item_path}"
+				end
 			end
 			return gallery_data
 		end
 
+        def gen_gallery_data_from_item(item, source_dir, cap_ref, itemnum)
+            cap = nil
+            
+            if cap_ref != nil
+                cap = String.new(cap_ref)
+        
+                if itemnum != nil
+                    cap << " (#{itemnum})"
+                end
+            end
+        
+    		hsh = {
+                "url" => "/#{source_dir}/#{item}",
+                "thumbnail" => GalleryThumbnail.new(item, @config), #this should be url to a generated thumbnail, eventually
+                "caption" => cap
+            }
+            
+            return hsh
+        end
 
 		def block_contents
 			text = @nodelist[0]
@@ -171,7 +203,7 @@ module Jekyll
 		 			
 		 			img = MiniMagick::Image.open(item['file'])
 		 			
-		 			puts "Generating #{item['thumbname']} from #{item['file']} (size #{thumb_w}x#{thumb_h})"
+		 			puts "JekyllGalleryTag: Generating #{item['thumbname']} from #{item['file']} (size #{thumb_w}x#{thumb_h})"
 		 			
                     # Scale and crop via Mini_Magick - borrowed from https://github.com/robwierzbowski/jekyll-image-tag
                     img.combine_options do |i|
