@@ -3,9 +3,11 @@ JekyllGalleryTag
 
 Jekyll plugin to generate thumbnails from a directory of images and display them with a Liquid tag
 
+This fork is based on [luckyalvy's fork](https://github.com/luckyalvy/JekyllGalleryTag) of [redwallhp's JekyllGalleryTag](https://github.com/redwallhp/JekyllGalleryTag). It uses [minimagick](https://github.com/minimagick/minimagick) instead of [RMagick](https://github.com/rmagick/rmagick) which eats up less memory.
+
 Installation
 --------------
-0. Install [ImageMagick](http://www.imagemagick.org/) and the [RMagick gem](https://github.com/rmagick/rmagick) (Here is good instruction how to [Install rmagick on OS X Mountain Lion](https://coderwall.com/p/mwtoya)).
+0. Install [ImageMagick](http://www.imagemagick.org/) and the [mini_magick gem](https://github.com/minimagick/minimagick).
 1. Drop `galleries.rb` into your Jekyll site's `_plugins` folder.
 2. Add the following to your `_config.yml` and customize to taste.
 
