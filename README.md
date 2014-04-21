@@ -10,6 +10,7 @@ Enhanced version features
 
 * uses [minimagick](https://github.com/minimagick/minimagick) instead of [RMagick](https://github.com/rmagick/rmagick) which eats up less memory
 * generate galleries by pointing to folders of images instead of pointing to each single file (see "Usage" below)
+* generate gallery images in a list (<ul>) when `columns` setting is `0`
 * includes the enhancements of [luckyalvy's fork](https://github.com/luckyalvy/JekyllGalleryTag)
 
 Installation
