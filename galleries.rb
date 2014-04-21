@@ -6,7 +6,7 @@
 # Author: Matt Harzewski, Oleksii Schastlyvyi, Markus Konrad
 # Copyright: Copyright 2013 Matt Harzewski
 # License: GPLv2 or later
-# Version: 1.1.0-minimagic-fork
+# Version: 1.3.0
 
 
 module Jekyll
