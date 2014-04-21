@@ -1,31 +1,23 @@
-JekyllGalleryTag (enhanced version)
-===================================
+JekyllGalleryTag
+================
 
 Jekyll plugin to generate thumbnails from a directory of images and display them with a Liquid tag.
 
-This fork is based on [luckyalvy's fork](https://github.com/luckyalvy/JekyllGalleryTag) of [redwallhp's JekyllGalleryTag](https://github.com/redwallhp/JekyllGalleryTag).
-
-Enhanced version features
--------------------------
-
-* uses [minimagick](https://github.com/minimagick/minimagick) instead of [RMagick](https://github.com/rmagick/rmagick) which eats up less memory
-* generate galleries by pointing to folders of images instead of pointing to each single file (see "Usage" below)
-* generate gallery images in a list (`<ul>` tag) when `columns` setting is `0`
-* includes the enhancements of [luckyalvy's fork](https://github.com/luckyalvy/JekyllGalleryTag)
-
 Installation
 ------------
-0. Install [ImageMagick](http://www.imagemagick.org/) and the [mini_magick gem](https://github.com/minimagick/minimagick).
-1. Drop `galleries.rb` into your Jekyll site's `_plugins` folder.
-2. Add the following to your `_config.yml` and customize to taste.
+0. Install [ImageMagick](http://www.imagemagick.org/)
+1. Install a Ruby gem for ImageMagick: Either [mini_magick](https://github.com/minimagick/minimagick)or [RMagick](https://github.com/rmagick/rmagick) (Here is good instruction how to [Install rmagick on OS X Mountain Lion](https://coderwall.com/p/mwtoya)).
+2. Drop `galleries.rb` into your Jekyll site's `_plugins` folder.
+3. Add the following to your `_config.yml` and customize to taste.
 
 ``` yaml
 gallerytag:
+    magick_lib: mini               # choose this if you use mini_magick
     source_dir: images/gallery
     destination_dir: images/thumbs
     thumb_width: 150
     thumb_height: 150
-    columns: 4
+    columns: 4                     # set to 0 and a <ul> list will be generated
     custom_attribute_name: data-lightbox
 ```
 
