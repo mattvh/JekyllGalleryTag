@@ -3,13 +3,13 @@
 # Automatically creates thumbnails for a directory of images.
 # Adds a "gallery" Liquid tag
 # 
-# Author: Matt Harzewski
+# Author: Matt Harzewski, Oleksii Schastlyvyi, Markus Konrad
 # Copyright: Copyright 2013 Matt Harzewski
 # License: GPLv2 or later
-# Version: 1.1.0
+# Version: 1.1.0-minimagic-fork
 
 
-require "RMagick"
+require 'mini_magick'
 
 module Jekyll
 
@@ -165,18 +165,27 @@ module Jekyll
 
 	 	def thumbify(items)
 	 		if items.count > 0
-		 		items.each do |item|
-
-		 			img = Magick::Image.read(item['file']).first
-		 			thumb = img.resize_to_fill!(@config['thumb_width'], @config['thumb_height'])
+		 		items.each do |item|		 			
+		 			thumb_w = @config['thumb_width']
+		 			thumb_h = @config['thumb_height']
+		 			
+		 			img = MiniMagick::Image.open(item['file'])
+		 			
+		 			puts "Generating #{item['thumbname']} from #{item['file']} (size #{thumb_w}x#{thumb_h})"
+		 			
+                    # Scale and crop via Mini_Magick - borrowed from https://github.com/robwierzbowski/jekyll-image-tag
+                    img.combine_options do |i|
+                      i.resize "#{thumb_w}x#{thumb_h}^"
+                      i.gravity "center"
+                      i.crop "#{thumb_w}x#{thumb_h}+0+0"
+                    end
 
 		 			# create directory for thumbnail if it not exists
 		 			if !Dir.exists?(File.dirname(item['thumbname']))
 		 				FileUtils.mkdir_p File.dirname(item['thumbname'])
 		 			end
 
-		 			thumb.write(item['thumbname'])
-		 			thumb.destroy!
+                    img.write item['thumbname']
 		 		end
 	 		end
 	 	end
