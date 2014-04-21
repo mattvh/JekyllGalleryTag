@@ -37,9 +37,7 @@ module Jekyll
 			images.each_with_index do |image, key|
 				images_html << "<dl class=\"gallery-item\">\n"
 				images_html << "<dt class=\"gallery-icon\">\n"
-				images_html << "<a class=\"gallery-link\" href=\"#{image['url']}\" title=\"#{image['caption']}\" #{custom_attribute_name}=\"#{@gallery_name}\">"
-				images_html << "<img src=\"#{image['thumbnail']}\" class=\"thumbnail\" width=\"#{height}\" height=\"#{width}\" />\n"
-				images_html << "</a>\n"
+				images_html << gen_img_html(image['url'], image['thumbnail'], width, height, image['caption'], custom_attribute_name)
 				images_html << "</dt>\n"
 				images_html << "<dd class=\"gallery-caption\">#{image['caption']}</dd>"
 				images_html << "</dl>\n\n"
@@ -52,6 +50,13 @@ module Jekyll
 
 		end
 
+        def gen_img_html(full_img_url, thumb_img_url, w, h, caption, custom_attribute_name)
+            img_html =  "<a class=\"gallery-link\" href=\"#{full_img_url}\" title=\"#{caption}\" #{custom_attribute_name}=\"#{@gallery_name}\">\n"
+            img_html << "<img src=\"#{thumb_img_url}\" class=\"thumbnail\" width=\"#{w}\" height=\"#{h}\" />\n"
+            img_html << "</a>\n"
+            
+            return img_html
+        end
 
 		def gallery_images
 			input_data = block_contents
