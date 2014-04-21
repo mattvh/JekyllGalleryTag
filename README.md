@@ -6,7 +6,7 @@ Jekyll plugin to generate thumbnails from a directory of images and display them
 Installation
 ------------
 0. Install [ImageMagick](http://www.imagemagick.org/)
-1. Install a Ruby gem for ImageMagick: Either [mini_magick](https://github.com/minimagick/minimagick)or [RMagick](https://github.com/rmagick/rmagick) (Here is good instruction how to [Install rmagick on OS X Mountain Lion](https://coderwall.com/p/mwtoya)).
+1. Install a Ruby gem for ImageMagick: Either [mini_magick](https://github.com/minimagick/minimagick) or [RMagick](https://github.com/rmagick/rmagick) (Here is good instruction how to [Install rmagick on OS X Mountain Lion](https://coderwall.com/p/mwtoya)).
 2. Drop `galleries.rb` into your Jekyll site's `_plugins` folder.
 3. Add the following to your `_config.yml` and customize to taste.
 
