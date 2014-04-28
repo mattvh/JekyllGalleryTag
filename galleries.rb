@@ -29,7 +29,7 @@ module Jekyll
 			width = (@config['thumb_width'] != nil) ? @config['thumb_width'] : 150
 			height = (@config['thumb_height'] != nil) ? @config['thumb_height'] : 150
 			custom_attribute_name = (@config['custom_attribute_name'] != nil) ? @config['custom_attribute_name'] : 'rel'
-			images = gallery_images
+			images = gallery_images(context)
 
 			images_html = ""
 			images_html << "<ul class=\"gallery-list\">\n" if columns <= 0 
@@ -77,8 +77,8 @@ module Jekyll
             return img_html
         end
 
-		def gallery_images
-			input_data = block_contents
+		def gallery_images(context)
+			input_data = block_contents(context)
 			source_dir = @config['source_dir'] != nil ? @config['source_dir'].sub(/^\//, '') : (@config['url'] != nil ? @config['url'].sub(/^\//, '') : "images/thumbs");
 			gallery_data = []
 			input_data.each do |item|
@@ -125,8 +125,11 @@ module Jekyll
             return hsh
         end
 
-		def block_contents
+		def block_contents(context)
 			text = @nodelist[0]
+			if @nodelist[0].strip!.length == 0 && @nodelist[1] != nil # check if we have a variable in the nodelist
+    			text = @nodelist[1].render(context)  # render the variable
+	        end
 			lines = text.split(/\n/).map {|x| x.strip }.reject {|x| x.empty? }
 			lines = lines.map { |line|
 				line.split(/\s*::\s*/).map(&:strip)
