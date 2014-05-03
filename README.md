@@ -52,7 +52,13 @@ subfolder2/
 {% endgallery %}
 ```
 
-You can also mix both!
+You can also mix both! And you can also specify the maximum number of images to be shown in this gallery directly after the gallery name. E.g. this will only show the first 10 images from the folder `subfolder/`:
+
+```
+{% gallery galleryname 10 %}
+subfolder/
+{% endgallery %}
+```
 
 `subfolder/` is a directory with images in you `source_dir`. 
 
