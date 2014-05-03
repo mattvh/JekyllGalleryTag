@@ -3,7 +3,7 @@
 # Automatically creates thumbnails for a directory of images.
 # Adds a "gallery" Liquid tag
 # 
-# Author: Matt Harzewski, Oleksii Schastlyvyi, Markus Konrad
+# Authors: Matt Harzewski, Oleksii Schastlyvyi, Markus Konrad
 # Copyright: Copyright 2013 Matt Harzewski
 # License: GPLv2 or later
 # Version: 1.3.0
@@ -17,8 +17,12 @@ module Jekyll
 
 	 	def initialize(tag_name, markup, tokens)
 			super
-			@gallery_name = markup
+			@gallery_name, @max_img_num = markup.split
 			@gallery_name.strip!
+			if @max_img_num
+			    @max_img_num.strip!
+			    @max_img_num = @max_img_num.to_i
+			end
 		end
 
 
@@ -93,6 +97,8 @@ module Jekyll
 	   			        gallery_data.push(hsh)
 	   			        
 	   			        itemnum += 1
+	   			        
+        				break if (@max_img_num && gallery_data.length >= @max_img_num)
                     end
 			    elsif item_ok
                     hsh = gen_gallery_data_from_item(item[0], source_dir, item[1], nil)
@@ -101,6 +107,8 @@ module Jekyll
 				else
 				    puts "JekyllGalleryTag: Could not read file #{full_item_path}"
 				end
+
+				break if (@max_img_num && gallery_data.length >= @max_img_num)
 			end
 			return gallery_data
 		end
