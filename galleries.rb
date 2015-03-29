@@ -139,7 +139,7 @@ module Jekyll
 	 				name = File.basename(file).sub(File.extname(file), "-thumb#{File.extname(file)}")
 	 				thumbname = File.join(@gallery_dest, name)
 	                # Keep the thumb files from being cleaned by Jekyll
-	                site.static_files << Jekyll::GalleryFile.new(site, site.dest, @config['dir'], name )
+	                site.static_files << Jekyll::GalleryFile.new(site, site.source, @config['dir'], name)
 	 				if !File.exists?(thumbname)
 	 					to_resize.push({ "file" => file, "thumbname" => thumbname })
 	 				end
