@@ -65,7 +65,7 @@ module Jekyll
 
 
 		def block_contents
-			text = @nodelist[0]
+			text = nodelist[0]
 			lines = text.split(/\n/).map {|x| x.strip }.reject {|x| x.empty? }
 			lines = lines.map { |line|
 				line.split(/\s*::\s*/).map(&:strip)
