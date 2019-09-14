@@ -17,7 +17,7 @@ module Jekyll
 	class GalleryTag < Liquid::Block
 
 
-	 	version = "1.0.0"
+	 	version = "1.2.1"
 
         def initialize(tag_name, markup, tokens)
 			super

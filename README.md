@@ -4,10 +4,11 @@ jekyll-gallery-tag
 Jekyll plugin to generate thumbnails from a directory of images and display them with a Liquid tag
 
 Installation
---------------
-0. Install [ImageMagick](http://www.imagemagick.org/) and the [RMagick gem.](https://github.com/rmagick/rmagick)
-1. Drop `galleries.rb` into your Jekyll site's `_plugins` folder.
-2. Add the following to your `_config.yml` and customize to taste.
+------------
+
+1. Install [ImageMagick](http://www.imagemagick.org/) and the [RMagick gem.](https://github.com/rmagick/rmagick)
+2. Drop `galleries.rb` into your Jekyll site's `_plugins` folder.
+3. Add the following to your `_config.yml` and customize to taste.
 
 ``` yaml
 gallerytag:
@@ -24,6 +25,17 @@ gallerytag:
 * `thumb_height` — The height, in pixels, you want your thumbnails to have
 * `columns` — How many columns galleries should display when the Liquid tag is used.
 
+
+### Via Gemfile
+
+Alternitively, you can install it via a gemfile
+
+Add the following to such
+
+``` ruby
+gem "jekyll-gallery-tag", :git => 'https://github.com/mattvh/JekyllGalleryTag.git', :tag => '1.1.1'
+
+```
 
 Usage
 -------
