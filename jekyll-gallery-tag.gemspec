@@ -7,5 +7,5 @@ Gem::Specification.new do |s|
     s.author = "Matt Harzewski"
     s.files = Dir['lib/*']
 
-    spec.add_development_dependency "bundler", "~> 2.0.2"
+    s.add_development_dependency "bundler", "~> 2.0.2"
 end
