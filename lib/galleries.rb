@@ -1,8 +1,8 @@
 # Jekyll GalleryTag
-# 
+#
 # Automatically creates thumbnails for a directory of images.
 # Adds a "gallery" Liquid tag
-# 
+#
 # Author: Matt Harzewski
 # Copyright: Copyright 2013 Matt Harzewski
 # License: GPLv2 or later
@@ -17,7 +17,9 @@ module Jekyll
 	class GalleryTag < Liquid::Block
 
 
-	 	def initialize(tag_name, markup, tokens)
+	 	version = "1.2.1"
+
+        def initialize(tag_name, markup, tokens)
 			super
 			@gallery_name = markup
 		end
